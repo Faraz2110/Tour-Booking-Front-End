@@ -1,0 +1,9 @@
+| Element        | Tailwind Class        | Hex Code  | Usage                          |
+| -------------- | --------------------- | --------- | ------------------------------ |
+| Background     | `bg-gray-50`          | `#F9FAFB` | Page background (light, clean) |
+| Card/Box       | `bg-white`            | `#FFFFFF` | Form/card container            |
+| Primary Accent | `bg-teal-600`         | `#0D9488` | Buttons                        |
+| Hover Accent   | `hover:bg-teal-500`   | `#14B8A6` | Button hover effect            |
+| Text Main      | `text-gray-700`       | `#374151` | Input labels, body text        |
+| Title Text     | `text-teal-700`       | `#0F766E` | Heading, links                 |
+| Hover Text     | `hover:text-teal-900` | `#134E4A` | Link hover                     |
