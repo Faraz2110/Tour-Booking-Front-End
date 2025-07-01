@@ -17,7 +17,7 @@ const BookingList = () => {
   return (
     <div className="p-6 top-3 bg-gray-100 min-h-screen">
       <h1 className="text-2xl font-bold text-gray-800 mb-4">All Tour Bookings</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div className="h-[300px]">
         {booking.length === 0 ? (
           <p className="text-gray-500">No bookings available.</p>
         ) : (

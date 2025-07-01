@@ -77,7 +77,7 @@ const Detailslist = () => {
         </button>}
 
       <img
-        src={booking.imageUrlUrl || "https://via.placeholder.com/600x300"}
+        src={`http://localhost:3001/${booking.photo}` || "https://via.placeholder.com/600x300"}
         alt={booking.name}
         className="rounded-xl w-full h-60 object-cover mb-6"
       />
