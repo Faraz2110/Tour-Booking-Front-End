@@ -39,6 +39,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import Layout from './pages/Layout';
 import AddTourBooking from '../components/AddTourBooking';
 import Detailslist from './pages/Detailslist';
+import BookingForm from './pages/BookingForm';
 
 // ✅ Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -69,6 +70,7 @@ const App = () => {
 
           {/* 🔓 Public Route: Details page visible to all */}
           <Route path="/detailslist/:id" element={<Detailslist />} />
+          <Route path="/BookingForm/:id" element={<BookingForm />} />
         </Route>
 
         {/* ❌ 404 Page */}

@@ -58,7 +58,7 @@ const AddTourBooking = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     const form = new FormData();
     form.append('name', formData.name);
     form.append('from', formData.from);

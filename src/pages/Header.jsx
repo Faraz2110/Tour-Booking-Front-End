@@ -51,7 +51,7 @@ function Header() {
             </Link>
           ) : (
             <>
-              <span className="text-white font-semibold">Hi, {user?.name}</span>
+              <span className="text-white font-semibold upp">Hi, <span className='uppercase'>{user?.name}</span></span>
               <Link
                 to="/AddTourBooking"
                 className="bg-cyan-500 hover:bg-cyan-400 text-white px-4 py-2 rounded-full text-sm font-semibold transition"

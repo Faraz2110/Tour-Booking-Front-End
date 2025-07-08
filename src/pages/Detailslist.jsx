@@ -94,6 +94,8 @@ const Detailslist = () => {
         <p className="text-gray-700"><span className="font-semibold">Included:</span> Transport, Hotel, Meals, Tour Guide</p>
       </div>
     </div>
+
+
   );
 };
 

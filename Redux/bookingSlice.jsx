@@ -26,9 +26,9 @@ const bookingSlice = createSlice({
         state.bookings[index] = action.payload;
       }
     },
-    deleteBooking(state, action) {
-      state.bookings = state.bookings.filter(b => b._id !== action.payload);
-    },
+    // deleteBooking(state, action) {
+    //   state.bookings = state.bookings.filter(b => b._id !== action.payload);
+    // },
   },
 });
 
