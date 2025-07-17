@@ -14,9 +14,9 @@ const bookingSlice = createSlice({
     clearEditing(state) {
       state.editing = null;
     },
-    setBookings(state, action) {
-      state.bookings = action.payload;
-    },
+    // setBookings(state, action) {
+    //   state.bookings = action.payload;
+    // },
     addBooking(state, action) {
       state.bookings.push(action.payload);
     },
@@ -26,9 +26,9 @@ const bookingSlice = createSlice({
         state.bookings[index] = action.payload;
       }
     },
-    // deleteBooking(state, action) {
-    //   state.bookings = state.bookings.filter(b => b._id !== action.payload);
-    // },
+    deleteBooking(state, action) {
+      state.bookings = state.bookings.filter(b => b._id !== action.payload);
+    },
   },
 });
 

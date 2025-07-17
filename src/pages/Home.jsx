@@ -1,9 +1,17 @@
+
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FaMapMarkerAlt, FaPlaneDeparture, FaMoneyBillWave } from 'react-icons/fa';
+import {
+  FaMapMarkerAlt,
+  FaPlaneDeparture,
+  FaMoneyBillWave,
+  FaTrashAlt,
+  FaEdit,
+} from 'react-icons/fa';
 
 const Home = () => {
   const [bookings, setBookings] = useState([]);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const fetchBookings = async () => {
     try {
@@ -17,7 +25,33 @@ const Home = () => {
     }
   };
 
+  const deleteBooking = async (id) => {
+    const token = localStorage.getItem('token');
+    if (!token) return alert('You must be logged in to delete');
+
+    if (!window.confirm('Are you sure you want to delete this booking?')) return;
+
+    try {
+      const res = await fetch(`http://localhost:3001/api/bookings/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const result = await res.json();
+      if (res.ok) {
+        setBookings((prev) => prev.filter((b) => b._id !== id));
+      } else {
+        alert(result.error || 'Failed to delete');
+      }
+    } catch (err) {
+      alert('Error deleting booking');
+    }
+  };
+
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    setCurrentUser(user);
     fetchBookings();
   }, []);
 
@@ -32,10 +66,11 @@ const Home = () => {
           {bookings.map((booking) => (
             <div
               key={booking._id}
-              className="w-[300px] h-[310px] rounded-xl shadow-lg overflow-hidden flex-none"
+              className="w-[300px] h-[330px] rounded-xl shadow-lg overflow-hidden flex-none relative"
             >
               {/* Image */}
-              <div className="h-[180px] w-full overflow-hidden">
+
+              <div className="h-[180px] w-full overflow-hidden relative">
                 <img
                   src={
                     booking.photo
@@ -44,16 +79,29 @@ const Home = () => {
                   }
                   alt={booking.name}
                   className="h-full w-full object-cover"
+
                 />
+                <div className='mb-2  -300  bg-gray-400 rounded-sm px-2'>Added By : {booking.company}</div>
+            
               </div>
 
               {/* Info */}
-              <div className="bg-white p-4 rounded-xl shadow-md flex flex-col justify-between h-[140px]">
+              <div className="bg-white p-4 rounded-xl shadow-md flex flex-col justify-between h-[150px]">
                 <div className="text-sm text-gray-800 space-y-2">
-                  <h3 className="font-bold flex items-center gap-2 text-base truncate">
-                    <FaMapMarkerAlt className="text-emerald-600" />
-                    <span className="uppercase tracking-wide">{booking.name}</span>
-                  </h3>
+
+
+                  <div className='flex justify-between'>
+                    <h3 className="font-bold flex items-center gap-2 text-base truncate">
+                      <FaMapMarkerAlt className="text-emerald-600" />
+                      <span className="uppercase tracking-wide">{booking.name}</span>
+                    </h3>
+                    <div className="">
+                      <p className="text-xs  bg-emerald-100 text-emerald-800 inline-block px-2 py-0.5 rounded-md font-medium shadow-sm">
+                        Added by: {booking.company || 'Unknown'}
+                      </p>
+                    </div>
+                  </div>
+
 
                   <p className="flex items-center gap-2">
                     <FaPlaneDeparture className="text-sky-600" />
@@ -69,13 +117,14 @@ const Home = () => {
                 </div>
 
                 {/* Buttons */}
-                <div className="flex justify-between items-center">
+                <div className="flex justify-between items-center mt-2">
                   <Link
                     to={`/Detailslist/${booking._id}`}
                     className="text-sm font-medium text-sky-600 hover:underline"
                   >
-                    View
+                    View Details
                   </Link>
+
                   <Link
                     to={`/BookingForm/${booking._id}`}
                     className="text-sm font-semibold text-white bg-gradient-to-r from-emerald-500 to-lime-500 px-4 py-1.5 rounded-lg hover:from-emerald-600 hover:to-lime-600 transition duration-200"
@@ -83,10 +132,31 @@ const Home = () => {
                     Book
                   </Link>
                 </div>
-              </div>
 
+                {/* Owner controls (Edit/Delete) */}
+                {currentUser && booking.user === currentUser._id && (
+                  <div className="flex justify-end items-center gap-3 mt-3">
+                    <Link
+                      to={`/BookingForm/${booking._id}`}
+                      className="text-blue-600 hover:text-blue-800"
+                    >
+                      <FaEdit />
+                    </Link>
+                    <button
+                      onClick={() => deleteBooking(booking._id)}
+                      className="text-red-600 hover:text-red-800"
+                    >
+                      <FaTrashAlt />
+                    </button>
+
+                  </div>
+
+                )}
+
+              </div>
             </div>
           ))}
+
         </div>
       )}
     </div>

@@ -25,7 +25,7 @@ const SignIn = () => {
     setErrors([]);
 
     try {
-      const response = await fetch('http://localhost:3001/api/login', {
+      const response = await fetch('http://localhost:3001/api/SignIn', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -39,16 +39,17 @@ const SignIn = () => {
         } else if (data.message) {
           setErrors([data.message]);
         } else {
-          setErrors(['Login failed.']);
+          setErrors(['SignIn failed.']);
         }
         return;
       }
 
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
+      console.log(data.token)
       navigate('/');
     } catch (err) {
-      console.error('Login error:', err);
+      console.error('SignIn error:', err);
       setErrors(['Network error. Try again later.']);
     }
   };

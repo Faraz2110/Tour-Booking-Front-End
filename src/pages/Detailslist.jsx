@@ -9,8 +9,10 @@ const Detailslist = () => {
   const dispatch = useDispatch();
   const [booking, setBooking] = useState(null);
   const [loading, setLoading] = useState(true);
+
   const token = localStorage.getItem('token');
 
+  // Fetch booking details
   useEffect(() => {
     fetch(`http://localhost:3001/api/bookings/${id}`)
       .then((res) => res.json())
@@ -24,11 +26,13 @@ const Detailslist = () => {
       });
   }, [id]);
 
+  // Handle edit
   const handleEdit = () => {
     dispatch(setEditing(booking));
     navigate('/AddTourBooking');
   };
 
+  // Handle delete with token
   const handleDelete = async () => {
     const confirmDelete = window.confirm('Are you sure you want to delete this booking?');
     if (!confirmDelete) return;
@@ -36,13 +40,17 @@ const Detailslist = () => {
     try {
       const response = await fetch(`http://localhost:3001/api/bookings/${id}`, {
         method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
+
       const data = await response.json();
       if (response.ok) {
-        // dispatch(deleteBooking(id)); // ✅ update Redux
-        navigate('/'); // ✅ go back to home
+        dispatch(deleteBooking(id));
+        navigate('/');
       } else {
-        alert(data.error);
+        alert(data.error || 'Delete failed');
       }
     } catch (err) {
       console.error('Delete failed:', err);
@@ -50,8 +58,14 @@ const Detailslist = () => {
     }
   };
 
-  if (loading) return <p className="text-center text-lg text-gray-600 mt-10">Loading...</p>;
-  if (!booking) return <p className="text-center text-lg text-red-500 mt-10">Booking not found.</p>;
+  // UI rendering
+  if (loading) {
+    return <p className="text-center text-lg text-gray-600 mt-10">Loading...</p>;
+  }
+
+  if (!booking) {
+    return <p className="text-center text-lg text-red-500 mt-10">Booking not found.</p>;
+  }
 
   return (
     <div className="p-6 max-w-2xl mx-auto bg-white rounded-2xl shadow-md mt-10">
@@ -62,19 +76,22 @@ const Detailslist = () => {
         ← Go Back
       </button>
 
-      {!token ? '' : <button
-        onClick={handleEdit}
-        className="mb-4 ml-4 text-sm bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400"
-      >
-        Edit
-      </button>}
-      {!token ? '' :
-        <button
-          onClick={handleDelete}
-          className="mb-4 ml-4 text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-400"
-        >
-          Delete
-        </button>}
+      {token && (
+        <>
+          <button
+            onClick={handleEdit}
+            className="mb-4 ml-4 text-sm bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400"
+          >
+            Edit
+          </button>
+          <button
+            onClick={handleDelete}
+            className="mb-4 ml-4 text-sm bg-red-500 text-white px-3 py-1 rounded hover:bg-red-400"
+          >
+            Delete
+          </button>
+        </>
+      )}
 
       <img
         src={`http://localhost:3001/${booking.photo}` || "https://via.placeholder.com/600x300"}
@@ -94,8 +111,6 @@ const Detailslist = () => {
         <p className="text-gray-700"><span className="font-semibold">Included:</span> Transport, Hotel, Meals, Tour Guide</p>
       </div>
     </div>
-
-
   );
 };
 

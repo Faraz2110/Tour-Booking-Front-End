@@ -43,7 +43,7 @@ const SignUp = () => {
       }
 
       alert('Signup successful!');
-      navigate('/login');
+      navigate('/SignIn');
     } catch (err) {
       console.error('Signup error:', err);
       setErrors(["Network error. Please try again later."]);
@@ -134,7 +134,7 @@ const SignUp = () => {
 
         <p className="mt-4 text-sm text-center text-gray-700">
           Already have an account?{' '}
-          <Link to="/Login" className="text-teal-600 hover:text-teal-900 font-medium hover:underline">
+          <Link to="/SignIn" className="text-teal-600 hover:text-teal-900 font-medium hover:underline">
             Log in
           </Link>
         </p>

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { HiMenu, HiX } from 'react-icons/hi';
 
 function Header() {
+  console.log('header loaded')
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user'));
   const token = localStorage.getItem('token');
@@ -11,7 +12,7 @@ function Header() {
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
-    navigate('/login');
+    navigate('/SignIn');
   };
 
   // Prevent background scroll
@@ -46,12 +47,17 @@ function Header() {
         {/* Desktop Buttons */}
         <div className="hidden lg:flex items-center gap-4">
           {!token ? (
-            <Link to="/login" className="bg-teal-500 hover:bg-teal-400 text-white px-4 py-2 rounded-full text-sm font-semibold transition">
+            <Link to="/SignIn" className="bg-teal-500 hover:bg-teal-400 text-white px-4 py-2 rounded-full text-sm font-semibold transition">
               Sign In
             </Link>
           ) : (
             <>
-              <span className="text-white font-semibold upp">Hi, <span className='uppercase'>{user?.name}</span></span>
+              <Link
+                to="/Profile"
+                className="bg-cyan-500 hover:bg-cyan-400 text-white px-4 py-2 rounded-full text-sm font-semibold transition"
+              >
+                Profile
+              </Link>
               <Link
                 to="/AddTourBooking"
                 className="bg-cyan-500 hover:bg-cyan-400 text-white px-4 py-2 rounded-full text-sm font-semibold transition"
@@ -92,7 +98,7 @@ function Header() {
 
             {!token ? (
               <Link
-                to="/login"
+                to="/SignIn"
                 onClick={() => setMenuOpen(false)}
                 className="bg-teal-500 hover:bg-teal-400 text-white px-6 py-2 rounded-full"
               >
@@ -100,13 +106,12 @@ function Header() {
               </Link>
             ) : (
               <>
-                <span className="text-white text-xl">Hi, {user?.name}</span>
                 <Link
                   to="/AddTourBooking"
                   onClick={() => setMenuOpen(false)}
                   className="bg-cyan-500 hover:bg-cyan-400 text-white px-6 py-2 rounded-full"
                 >
-                  Add Booking
+                  Add Bookingg
                 </Link>
                 <button
                   onClick={() => {
