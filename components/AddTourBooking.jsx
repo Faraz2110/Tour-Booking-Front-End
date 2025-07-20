@@ -15,18 +15,26 @@ const AddTourBooking = () => {
   const [formData, setFormData] = useState({
     name: '',
     from: '',
-    to: '',
     price: '',
+    company: '',
     photo: null
   });
 
+  // ✅ Clear editing state if component is mounted without editing data
+  useEffect(() => {
+    if (!editing) {
+      dispatch(clearEditing());
+    }
+  }, [dispatch, editing]);
+
+  // ✅ Set form data when editing is available
   useEffect(() => {
     if (editing) {
       setFormData({
         name: editing.name || '',
         from: editing.from || '',
-        to: editing.to || '',
         price: editing.price || '',
+        company: editing.company || '',
         photo: null
       });
     } else {
@@ -61,6 +69,7 @@ const AddTourBooking = () => {
     const form = new FormData();
     form.append('name', formData.name);
     form.append('from', formData.from);
+    form.append('to', formData.to);
     form.append('price', formData.price);
     form.append('company', formData.company);
     if (formData.photo) {
@@ -79,7 +88,8 @@ const AddTourBooking = () => {
           method: editing ? 'PUT' : 'POST',
           headers: {
             Authorization: `Bearer ${token}`,
-            Accept: 'application/json' // ✅ do not set Content-Type for FormData
+            Accept: 'application/json'
+            // ❌ DO NOT set Content-Type manually when using FormData
           },
           body: form
         }
@@ -156,18 +166,18 @@ const AddTourBooking = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700"> Company </label>
+            <label className="block text-sm font-medium text-gray-700">Company</label>
             <input
               type="text"
-              value={formData.company}
               name="company"
+              value={formData.company}
               onChange={handleChange}
               className="mt-1 w-full px-4 py-2 border rounded-xl"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Upload photo</label>
+            <label className="block text-sm font-medium text-gray-700">Upload Photo</label>
             <input
               type="file"
               name="photo"
@@ -176,7 +186,6 @@ const AddTourBooking = () => {
               className="mt-1 w-full px-4 py-2 border rounded-xl"
             />
           </div>
-
 
           <button
             type="submit"

@@ -1,4 +1,4 @@
-// src/redux/bookingSlice.js
+
 import { createSlice } from '@reduxjs/toolkit';
 
 const bookingSlice = createSlice({
@@ -14,9 +14,9 @@ const bookingSlice = createSlice({
     clearEditing(state) {
       state.editing = null;
     },
-    // setBookings(state, action) {
-    //   state.bookings = action.payload;
-    // },
+    setBookings(state, action) {
+      state.bookings = action.payload;
+    },
     addBooking(state, action) {
       state.bookings.push(action.payload);
     },

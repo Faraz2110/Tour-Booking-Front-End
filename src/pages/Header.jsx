@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { HiMenu, HiX } from 'react-icons/hi';
+import {
+  clearEditing,
+} from '../../Redux/bookingSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 function Header() {
   console.log('header loaded')
@@ -8,6 +13,8 @@ function Header() {
   const user = JSON.parse(localStorage.getItem('user'));
   const token = localStorage.getItem('token');
   const [menuOpen, setMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -58,12 +65,15 @@ function Header() {
               >
                 Profile
               </Link>
-              <Link
-                to="/AddTourBooking"
+              <button
+                onClick={() => {
+                  dispatch(clearEditing());
+                  navigate('/AddTourBooking');
+                }}
                 className="bg-cyan-500 hover:bg-cyan-400 text-white px-4 py-2 rounded-full text-sm font-semibold transition"
               >
                 Add Booking
-              </Link>
+              </button>
               <button
                 onClick={handleLogout}
                 className="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-full text-sm font-semibold transition"
@@ -106,13 +116,15 @@ function Header() {
               </Link>
             ) : (
               <>
-                <Link
-                  to="/AddTourBooking"
-                  onClick={() => setMenuOpen(false)}
-                  className="bg-cyan-500 hover:bg-cyan-400 text-white px-6 py-2 rounded-full"
-                >
-                  Add Bookingg
-                </Link>
+
+
+                <button onClick={() => {
+                  dispatch(clearEditing());
+                  navigate('/AddTourBooking');
+                   setMenuOpen(false);
+                }}>
+                  + Add Booking
+                </button>
                 <button
                   onClick={() => {
                     handleLogout();
