@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setEditing, deleteBooking } from '../../Redux/bookingSlice';
+import { formatDistanceToNow } from 'date-fns';
+
 
 const Detailslist = () => {
   const { id } = useParams();
@@ -90,9 +92,13 @@ const Detailslist = () => {
           >
             Delete
           </button>
-        </>
-      )}
 
+        </>
+
+      )}
+      <p className="text-xs text-gray-500 italic my-2">
+        Added {formatDistanceToNow(new Date(booking.createdAt), { addSuffix: true })}
+      </p>
       <img
         src={`http://localhost:3001/${booking.photo}` || "https://via.placeholder.com/600x300"}
         alt={booking.name}

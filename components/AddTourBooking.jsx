@@ -133,6 +133,7 @@ const AddTourBooking = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
+              maxLength={15}
               required
               className="mt-1 w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-400"
               placeholder="e.g. Murree Hills"

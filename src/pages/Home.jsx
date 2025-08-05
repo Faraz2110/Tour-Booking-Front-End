@@ -1,5 +1,7 @@
 
 import React, { useEffect, useState } from 'react';
+import { formatDistanceToNow } from 'date-fns';
+
 import { Link } from 'react-router-dom';
 import {
   FaMapMarkerAlt,
@@ -66,11 +68,15 @@ const Home = () => {
           {bookings.map((booking) => (
             <div
               key={booking._id}
-              className="w-[300px] h-[330px] rounded-xl shadow-lg overflow-hidden flex-none relative"
-            >
-              {/* Image */}
+              className="w-[300px] h-[330px] rounded-xl shadow-lg overflow-hidden flex-none relative transition-all transform hover:scale-105 hover:shadow-2xl hover:border-2 hover:border-emerald-500 duration-300"
 
-              <div className="h-[180px] w-full overflow-hidden relative">
+            >
+
+
+              <Link
+                to={`/Detailslist/${booking._id}`}
+                className="h-[180px] w-full overflow-hidden relative block"
+              >
                 <img
                   src={
                     booking.photo
@@ -79,11 +85,9 @@ const Home = () => {
                   }
                   alt={booking.name}
                   className="h-full w-full object-cover"
-
                 />
-                <div className='mb-2  -300  bg-gray-400 rounded-sm px-2'>Added By : {booking.company}</div>
-            
-              </div>
+
+              </Link>
 
               {/* Info */}
               <div className="bg-white p-4 rounded-xl shadow-md flex flex-col justify-between h-[150px]">
@@ -99,6 +103,7 @@ const Home = () => {
                       <p className="text-xs  bg-emerald-100 text-emerald-800 inline-block px-2 py-0.5 rounded-md font-medium shadow-sm">
                         Added by: {booking.company || 'Unknown'}
                       </p>
+                    
                     </div>
                   </div>
 
