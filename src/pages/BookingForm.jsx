@@ -9,7 +9,7 @@ const BookingForm = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/api/bookings/${id}`)
+    fetch(`http://tour-booking-back-end-production.up.railway.app:3001/api/bookings/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBooking(data);

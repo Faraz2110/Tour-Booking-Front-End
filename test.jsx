@@ -4,7 +4,7 @@
       {/* photo */}
       <div className=" rounded-xl overflow-hidden">
         <img
-          src={`http://localhost:3001/${booking.photo}`|| "https://via.placeholder.com/300x160"}
+          src={`http://tour-booking-back-end-production.up.railway.app:3001/${booking.photo}`|| "https://via.placeholder.com/300x160"}
           alt="Booking"
           className=" transform hover:scale-105 transition duration-300"
         />

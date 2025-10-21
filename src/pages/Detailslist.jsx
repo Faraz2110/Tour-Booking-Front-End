@@ -16,7 +16,7 @@ const Detailslist = () => {
 
   // Fetch booking details
   useEffect(() => {
-    fetch(`http://localhost:3001/api/bookings/${id}`)
+    fetch(`http://tour-booking-back-end-production.up.railway.app:3001/api/bookings/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setBooking(data);
@@ -40,7 +40,7 @@ const Detailslist = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://localhost:3001/api/bookings/${id}`, {
+      const response = await fetch(`http://tour-booking-back-end-production.up.railway.app:3001/api/bookings/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -100,7 +100,7 @@ const Detailslist = () => {
         Added {formatDistanceToNow(new Date(booking.createdAt), { addSuffix: true })}
       </p>
       <img
-        src={`http://localhost:3001/${booking.photo}` || "https://via.placeholder.com/600x300"}
+        src= {booking.photo  || "https://via.placeholder.com/600x300"}
         alt={booking.name}
         className="rounded-xl w-full h-60 object-cover mb-6"
       />

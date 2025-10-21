@@ -13,7 +13,7 @@ const Profile = () => {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
       if (parsedUser.photo) {
-        setPreview(`http://localhost:3001/${parsedUser.photo}`);
+        setPreview(`http://tour-booking-back-end-production.up.railway.app:3001/${parsedUser.photo}`);
       }
     }
   }, []);
@@ -30,7 +30,7 @@ const Profile = () => {
       const token = localStorage.getItem('token');
 
       const xhr = new XMLHttpRequest();
-      xhr.open('PUT', 'http://localhost:3001/api/profile-photo', true);
+      xhr.open('PUT', 'http://tour-booking-back-end-production.up.railway.app:3001/api/profile-photo', true);
       xhr.setRequestHeader('Authorization', `Bearer ${token}`);
 
       xhr.upload.onprogress = (event) => {
@@ -47,7 +47,7 @@ const Profile = () => {
           const updatedUser = { ...user, photo: data.photo };
           localStorage.setItem('user', JSON.stringify(updatedUser));
           setUser(updatedUser);
-          setPreview(`http://localhost:3001/${data.photo}`);
+          setPreview(`http://tour-booking-back-end-production.up.railway.app:3001/${data.photo}`);
           setProgress(0);
         } else {
           alert('Upload failed');

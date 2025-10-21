@@ -1,4 +1,3 @@
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const bookingSlice = createSlice({
@@ -6,6 +5,8 @@ const bookingSlice = createSlice({
   initialState: {
     editing: null,
     bookings: [],
+    searchTerm: '',
+    sortType: '',
   },
   reducers: {
     setEditing(state, action) {
@@ -27,7 +28,14 @@ const bookingSlice = createSlice({
       }
     },
     deleteBooking(state, action) {
-      state.bookings = state.bookings.filter(b => b._id !== action.payload);
+      state.bookings = state.bookings.sort(b => b._id !== action.payload);
+    },
+
+    setSearchTerm(state, action) {
+      state.searchTerm = action.payload;
+    },
+    setsortType(state, action) {
+      state.sortType = action.payload;
     },
   },
 });
@@ -39,6 +47,12 @@ export const {
   addBooking,
   updateBooking,
   deleteBooking,
+  setSearchTerm,
+  setsortType,
 } = bookingSlice.actions;
+
+export const selectBookings = (state) => state.booking.bookings;
+export const selectSearchTerm = (state) => state.booking.searchTerm;
+export const selectsortType = (state) => state.booking.sortType;
 
 export default bookingSlice.reducer;

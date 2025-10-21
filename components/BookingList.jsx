@@ -24,7 +24,7 @@
 //                 <img
 //                   src={
 //                     booking.photo
-//                       ? `http://localhost:3001/${booking.photo}`
+//                       ? `http://tour-booking-back-end-production.up.railway.app:3001/${booking.photo}`
 //                       : 'https://via.placeholder.com/600x300'
 //                   }
 //                   alt={booking.name}

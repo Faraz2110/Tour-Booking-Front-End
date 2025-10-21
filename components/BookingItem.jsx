@@ -7,7 +7,7 @@
 //     <div className=" bg-yellow-500 w-[300px] h-[300px] flex-none rounded-2xl shadow-md hover:shadow-xl transition duration-300 p-4 flex flex-col justify-between border border-gray-100">
 //       <div className="w-full h-[100px] overflow-hidden  mb-2">
 //         <img
-//           src={booking.photo ? `http://localhost:3001/${booking.photo}` : "https://via.placeholder.com/600x300"}
+//           src={booking.photo ? `http://tour-booking-back-end-production.up.railway.app:3001/${booking.photo}` : "https://via.placeholder.com/600x300"}
 //           alt={booking.name}
 //           className="h-full object-contain"
 //         />
